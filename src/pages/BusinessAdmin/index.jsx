@@ -9,7 +9,8 @@ export function BusinessAdmin() {
   const [myOrders, setMyOrders] = useState([]);
   const [myProducts, setMyProducts] = useState([]);
   const [isLoading, setisLoading] = useState(true);
-
+  //const [form, setForm] = useState([]);
+  console.log(myOrders);
   useEffect(() => {
     async function fetchOrder() {
       try {
@@ -34,13 +35,17 @@ export function BusinessAdmin() {
       <div className="flex flex-row justify-center h-40 bg-white rounded drop-shadow-lg flex justify-center gap-20 items-end pb-12 px-16 border-b-4 border-indigo-900 w-10/12 mx-auto mb-4">
         <h1 className="text-6xl text-indigo-900">Admin Page</h1>
       </div>
+      {/* <img
+        src={form.picture}
+        className="w-56 h-56 rounded-full mb-5 border-4 border-black"
+      /> */}
       {!isLoading && (
         <div className="container border-none flex flex-col items-center w-screen">
           <section className="w-10/12">
             <h2 className="border-b-2 border-b-indigo-900 text-2xl text-indigo-900 font-semibold pl-4">
               My orders
             </h2>
-            <div className="h-80 overflow-auto bg-white/80 rounded-xl border-2 mt-2 mb-6 ">
+            <div className="h-80 overflow-auto bg-white/80 rounded-xl border-2 mt-2 mb-6 ml-2">
               {myOrders.orders
                 .filter(
                   (currentOrder) =>
@@ -51,13 +56,20 @@ export function BusinessAdmin() {
                 .map((currentOrder) => {
                   return (
                     <div key={currentOrder._id}>
+                      <img
+                        src={currentOrder.product.picture}
+                        className="w-52 max-h-56"
+                      />
                       <p>{currentOrder.client.name}</p>
                       <p>{currentOrder.product.name}</p>
-                      <p>{currentOrder.status}</p>
+                      <p className="font-bold">{currentOrder.status}</p>
                       <Link
                         to={`/business/admin/viewOrder/${currentOrder._id}`}
                       >
-                        Orders details
+                        <button className="btn-indigo mb-2">
+                          {" "}
+                          Orders details{" "}
+                        </button>{" "}
                       </Link>
                     </div>
                   );
@@ -72,7 +84,7 @@ export function BusinessAdmin() {
               {myProducts.map((currentProduct) => {
                 return (
                   <div key={currentProduct._id}>
-                    <p>{currentProduct.name}</p>
+                    <p className="font-bold">{currentProduct.name}</p>
                     <p>{`R$ ${Math.floor(currentProduct.price / 100)},${
                       String(currentProduct.price)[
                         String(currentProduct.price).length - 2
@@ -90,7 +102,7 @@ export function BusinessAdmin() {
                     <Link
                       to={`/business/admin/viewMagic/${currentProduct._id}`}
                     >
-                      Detalhes do Produto
+                      <button className="btn-indigo mt-2">Details</button>
                     </Link>
                   </div>
                 );
@@ -112,9 +124,13 @@ export function BusinessAdmin() {
                 .map((currentOrder) => {
                   return (
                     <div key={currentOrder._id}>
+                      <img
+                        src={currentOrder.product.picture}
+                        className="mt-2 w-52 max-h-56"
+                      />
                       <p>{currentOrder.client.name}</p>
                       <p>{currentOrder.product.name}</p>
-                      <p>{currentOrder.status}</p>
+                      <p className="font-bold">{currentOrder.status}</p>
                     </div>
                   );
                 })}

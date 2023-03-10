@@ -44,38 +44,40 @@ export function BusinessOrderDetail() {
   return (
     <div>
       <BusinessNavBar />
-      <h1>Detalhe do pedido na visão do adm</h1>
-      <h1>Here is your order</h1>
-      {!isLoading && (
-        <>
-          <h2>Product: {order.product.name}.</h2>
-          <h2>Business: {order.business.name}.</h2>
-          <h2>Client: {order.client.name}.</h2>
-          <h2>Status: {order.status}.</h2>
+      <div className>
+        <h1 className="font-bold">Here is your order</h1>
+        {!isLoading && (
+          <>
+            <img src={order.product.picture} className="w-52 max-h-56" />
+            <h2>Product: {order.product.name}.</h2>
+            <h2>Business: {order.business.name}.</h2>
+            <h2>Client: {order.client.name}.</h2>
+            <h2 className="font-bold">Status: {order.status}.</h2>
 
-          <button
-            value="REJECTED BY COMPANY"
-            onClick={changeOrderStatus}
-            className="btn-indigo bg-red-500"
-          >
-            Reject Order
-          </button>
-          <button
-            value="CONFIRMED BY COMPANY"
-            onClick={changeOrderStatus}
-            className="btn-indigo"
-          >
-            Confirm Order
-          </button>
-          <button
-            value="CONCLUDED"
-            onClick={changeOrderStatus}
-            className="btn-indigo bg-green-500"
-          >
-            Mark as concluded
-          </button>
-        </>
-      )}
+            <button
+              value="REJECTED BY COMPANY"
+              onClick={changeOrderStatus}
+              className="btn-indigo bg-red-500"
+            >
+              Reject Order
+            </button>
+            <button
+              value="CONFIRMED BY COMPANY"
+              onClick={changeOrderStatus}
+              className="btn-indigo"
+            >
+              Confirm Order
+            </button>
+            <button
+              value="CONCLUDED"
+              onClick={changeOrderStatus}
+              className="btn-indigo bg-green-500"
+            >
+              Mark as concluded
+            </button>
+          </>
+        )}
+      </div>
     </div>
   );
 }

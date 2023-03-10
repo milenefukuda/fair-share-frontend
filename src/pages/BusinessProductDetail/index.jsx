@@ -82,20 +82,22 @@ export function BusinessProductDetail() {
       </section>
 
       <button
-        className="btn-indigo bg-yellow-500"
+        className="text-center justify-center btn-indigo bg-yellow-500"
         onClick={() => setShowForm(!showForm)}
       >
         Editar Produtos aqui
       </button>
 
-      <button className="btn-indigo bg-red-500" onClick={handleDelete}>
+      <button
+        className="text-center justify-center btn-indigo bg-red-500"
+        onClick={handleDelete}
+      >
         Excluir produto
       </button>
 
       {showForm && (
         <>
           <form>
-            aqui vai o formulario para editar o produto
             <label htmlFor="expirationDate">Set new expiration date: </label>
             <input
               id="expirationDate"
@@ -105,11 +107,13 @@ export function BusinessProductDetail() {
               onChange={handleChange}
             />
           </form>
-          <button onClick={handleSubmit}>Salvar</button>
+          <button className="btn-indigo" onClick={handleSubmit}>
+            Salvar
+          </button>
           <footer className="text-xs italic">
             <p>
-              Other changes are not allowed. Please make another product to
-              change name, description, picture and price.
+              Other types of changes are not allowed. Please make another
+              product to change name, description, picture and price.
             </p>
           </footer>
         </>
