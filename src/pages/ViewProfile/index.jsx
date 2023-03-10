@@ -4,6 +4,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { ClientNavBar } from "../../components/ClientNavBar";
 import { AuthContext } from "../../contexts/authContext";
 import { useContext } from "react";
+import toast from "react-hot-toast";
 
 export function ViewProfile() {
   const [form, setForm] = useState([]),
@@ -38,12 +39,14 @@ export function ViewProfile() {
     navigate("/");
   }
 
-  async function handleDelete(e) {
+  async function handleDeleteOrder(e) {
     try {
       await api.delete(`/api/order/delete/${e.target.value}`);
       setReload(!reload);
+      toast.success("Order deleted!");
     } catch (err) {
       console.log(err);
+      toast.error("SOmething went wrong... please try again.");
     }
   }
 
@@ -169,7 +172,7 @@ export function ViewProfile() {
                     <button
                       value={currentOrder._id}
                       className="btn-indigo bg-red-400 hover:bg-red-500"
-                      onClick={handleDelete}
+                      onClick={handleDeleteOrder}
                     >
                       Delete
                     </button>

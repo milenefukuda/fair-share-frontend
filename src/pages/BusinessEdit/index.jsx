@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
 import { BusinessNavBar } from "../../components/BusinessNavBar";
+import toast from "react-hot-toast";
 
 export function BusinessEdit() {
   const { setLoggedInUser } = useContext(AuthContext);
@@ -60,16 +61,34 @@ export function BusinessEdit() {
     try {
       const imgURL = await handleUpload();
       await api.put("/api/user/edit", { ...form, picture: imgURL });
+      toast.success("Alterations Saved!");
       navigate("/business/admin/profile");
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong... please try again.");
     }
   }
 
-  function handleLogOut() {
+  function handleLogOut(e) {
+    e.preventDefault();
     localStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
     navigate("/");
+  }
+
+  async function handleDeleteUser(e) {
+    try {
+      e.preventDefault();
+      await api.delete("/api/user/delete");
+      localStorage.removeItem("loggedInUser");
+      setLoggedInUser(null);
+      toast.success("User deleted.");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong... please try again.");
+      navigate("/");
+    }
   }
 
   return (
@@ -255,6 +274,13 @@ export function BusinessEdit() {
                   className="btn-indigo"
                 >
                   Log out
+                </button>
+                <button
+                  onClick={handleDeleteUser}
+                  type="button"
+                  className="btn-indigo bg-black hover:bg-gray-800"
+                >
+                  Delete account
                 </button>
               </div>
             </div>

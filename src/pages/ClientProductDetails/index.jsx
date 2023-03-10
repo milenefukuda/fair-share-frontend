@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { NameLogo } from "../../components/NameLogo";
 import { api } from "../../api/api";
 import { ProductDetailsAndOrder } from "../../components/ProductDetailsAndOrder";
+import toast from "react-hot-toast";
 
 export function ClientProductDetails() {
   const params = useParams();
@@ -27,9 +28,11 @@ export function ClientProductDetails() {
       const response = await api.post(
         `/api/user/post/favorites/${selProduct.creator._id}`
       );
+      toast.success("Business added to favorites!");
       console.log(response);
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong... Please try again.");
     }
   }
 

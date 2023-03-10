@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { api } from "../../api/api";
 import { ClientNavBar } from "../../components/ClientNavBar";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function Favorites() {
   const [favorites, setFavorites] = useState([]),
@@ -24,8 +25,10 @@ export function Favorites() {
     try {
       await api.put(`/api/user/edit/favorites/${e.target.value}`);
       setReload(!reload);
+      toast.success("Unfollowed!");
     } catch (err) {
       console.log(err);
+      toast.error("Something went wrong... please try again.");
     }
   }
 

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { api } from "../../api/api";
 import { BusinessNavBar } from "../../components/BusinessNavBar";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 // Aqui faltam btns para fazer softdelete nas orders antigas.
 
@@ -34,6 +35,7 @@ export function BusinessAdmin() {
       console.log("Deleted");
       setReload(!reload);
       console.log("Reloaded");
+      toast.success("Order deleted.");
     } catch (err) {
       console.log(err);
     }

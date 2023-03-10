@@ -2,6 +2,7 @@ import { useState } from "react";
 import { api } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { BusinessNavBar } from "../../components/BusinessNavBar";
+import toast from "react-hot-toast";
 
 export function BusinessForm() {
   const [form, setForm] = useState({
@@ -43,11 +44,13 @@ export function BusinessForm() {
         price: form.price * 100,
       });
       console.log("I have just submitted the form.");
+      toast.success("Product created!");
       navigate("/business/admin");
     } catch (error) {
       console.log(error);
-      // Colocar toast avisando que o produto não foi salvo e que todos os campos precisam ser preenchidos para cirar um novo
-      // produto.
+      toast.error(
+        "Product not created. Please fill all the fields with valid inputs."
+      );
     }
   }
 
@@ -162,7 +165,7 @@ export function BusinessForm() {
                       <button
                         onClick={handleSubmit}
                         type="button"
-                        className="btn-indigo bg-green-500"
+                        className="btn-indigo bg-green-500 hover:bg-green-600"
                       >
                         Create new Product!
                       </button>

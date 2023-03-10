@@ -4,6 +4,7 @@ import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
 import { ClientNavBar } from "../../components/ClientNavBar";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function Profile() {
   const { setLoggedInUser } = useContext(AuthContext);
@@ -48,9 +49,7 @@ export function Profile() {
     try {
       const uploadData = new FormData();
       uploadData.append("picture", img);
-
       const response = await api.post("/api/uploadImage", uploadData);
-
       return response.data.url;
     } catch (error) {
       console.log(error);
@@ -64,19 +63,34 @@ export function Profile() {
       console.log("antes do handleupload");
       const imgURL = await handleUpload();
       console.log("depois do handle");
-
       await api.put("/api/user/edit", { ...form, picture: imgURL });
-
       console.log("depois do put");
+      toast.success("Alterations saved!");
       navigate("/user/viewProfile");
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong... please try again.");
     }
   }
-  function handleLogOut() {
+
+  function handleLogOut(e) {
+    e.preventDefault();
     localStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
     navigate("/");
+  }
+
+  async function handleDeleteUser(e) {
+    try {
+      await api.delete("/api/user/delete");
+      localStorage.removeItem("loggedInUser");
+      setLoggedInUser(null);
+      toast.success("User deleted.");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong... please try again.");
+    }
   }
 
   return (
@@ -228,7 +242,7 @@ export function Profile() {
           </div>
 
           <div className="pt-5">
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-6">
               <button
                 onClick={handleSubmit}
                 type="button"
@@ -240,9 +254,16 @@ export function Profile() {
               <button
                 onClick={handleLogOut}
                 type="submit"
-                className="ml-3 inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Log out
+              </button>
+              <button
+                onClick={handleDeleteUser}
+                type="button"
+                className="btn-indigo bg-black hover:bg-gray-800"
+              >
+                Delete account
               </button>
             </div>
           </div>
