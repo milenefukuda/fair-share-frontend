@@ -3,6 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
 import img from "../../images/cover.jpg";
+import toast from "react-hot-toast";
 
 export function Login() {
   const [form, setForm] = useState({
@@ -30,13 +31,15 @@ export function Login() {
       }
     } catch (error) {
       console.log(error);
+      toast.error(
+        "Could not login. Please insert valid credentials or sign up."
+      );
     }
   }
 
   return (
     <div className="min-h-screen">
       <h1 className="text-5xl font-bold text-center mb-12 pt-24">Login</h1>
-
       <div className="w-10/12 flex flex-col justify-center items-center m-auto">
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col chat-notification-title gap-6 w-72">
@@ -65,7 +68,7 @@ export function Login() {
           </div>
           <div className="flex flex-row mx-auto mt-12 justify-evenly">
             <button type="submit" className="btn-indigo text-center">
-              Login!
+              Log in!
             </button>
             <Link to="/signup">
               <button className="btn-indigo">Sign up</button>

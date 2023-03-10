@@ -86,8 +86,12 @@ export function Signup() {
       // const imgURL = await handleUpload();
       await api.post("/api/user/signup", { ...clone });
       navigate("/login");
+      toast.success(
+        "User created!! An e-mail was send to your mailbox to confirm your account."
+      );
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong... please try again.");
     }
   }
 

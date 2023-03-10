@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
 import { BusinessNavBar } from "../../components/BusinessNavBar";
+import toast from "react-hot-toast";
 
 export function BusinessEdit() {
   const { setLoggedInUser } = useContext(AuthContext);
@@ -60,9 +61,11 @@ export function BusinessEdit() {
     try {
       const imgURL = await handleUpload();
       await api.put("/api/user/edit", { ...form, picture: imgURL });
+      toast.success("Alterations Saved!");
       navigate("/business/admin/profile");
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong... please try again.");
     }
   }
 

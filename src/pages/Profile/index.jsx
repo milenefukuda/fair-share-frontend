@@ -4,6 +4,7 @@ import { api } from "../../api/api";
 import { AuthContext } from "../../contexts/authContext";
 import { ClientNavBar } from "../../components/ClientNavBar";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function Profile() {
   const { setLoggedInUser } = useContext(AuthContext);
@@ -48,9 +49,7 @@ export function Profile() {
     try {
       const uploadData = new FormData();
       uploadData.append("picture", img);
-
       const response = await api.post("/api/uploadImage", uploadData);
-
       return response.data.url;
     } catch (error) {
       console.log(error);
@@ -64,13 +63,13 @@ export function Profile() {
       console.log("antes do handleupload");
       const imgURL = await handleUpload();
       console.log("depois do handle");
-
       await api.put("/api/user/edit", { ...form, picture: imgURL });
-
       console.log("depois do put");
+      toast.success("Alterations saved!");
       navigate("/user/viewProfile");
     } catch (error) {
       console.log(error);
+      toast.error("Something went wrong... please try again.");
     }
   }
   function handleLogOut() {

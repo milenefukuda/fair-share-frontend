@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { NameLogo } from "../../components/NameLogo";
 import { api } from "../../api/api";
 import { BusinessNavBar } from "../../components/BusinessNavBar";
+import toast from "react-hot-toast";
 
 export function BusinessProductDetail() {
   const params = useParams();
@@ -33,14 +34,21 @@ export function BusinessProductDetail() {
       await api.put(`/api/product/edit/${product._id}`, form);
       setShowForm(false);
       setReload(!reload);
+      toast.success("Alteration saved!");
     } catch (err) {
       console.log(err);
     }
   }
 
   async function handleDelete() {
-    await api.delete(`/api/product/delete/${params.idProduct}`);
-    navigate("/business/admin");
+    try {
+      await api.delete(`/api/product/delete/${params.idProduct}`);
+      toast.success("Product deleted!");
+      navigate("/business/admin");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong... Please try again.");
+    }
   }
 
   // fazer inputs do form com value do form no handleChange

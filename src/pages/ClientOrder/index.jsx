@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { api } from "../../api/api";
 import { ClientNavBar } from "../../components/ClientNavBar";
+import toast from "react-hot-toast";
 
 export function ClientOrder() {
   const [orders, setOrder] = useState({});
@@ -28,12 +29,13 @@ export function ClientOrder() {
       if (
         ["CANCELED", "CONCLUDED", "REJECTED BY COMPANY"].includes(orders.status)
       ) {
-        // Colocar toast dizendo que nao pode alterar por que o pedido ja foi cancelado, rejeitado, ou concluido.
+        toast.error(`Product already ${order.status}`);
       } else {
         await api.put(`/api/order/edit/status/${params.idOrder}`, {
           status: "CANCELED",
         });
         setReload(!reload);
+        toast.success("Status updated!");
       }
     } catch (err) {
       console.log(err);
