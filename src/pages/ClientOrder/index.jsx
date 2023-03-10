@@ -64,6 +64,19 @@ export function ClientOrder() {
                     <span className="font-semibold">- Client: </span>
                     {orders.client.name}.
                   </li>
+                  <li>
+                    <span className="font-semibold">- Price: </span>
+                    {`R$ ${Math.floor(orders.product.price / 100)},${
+                      String(orders.product.price)[
+                        String(orders.product.price).length - 2
+                      ]
+                    }${
+                      String(orders.product.price)[
+                        String(orders.product.price).length - 1
+                      ]
+                    }`}
+                    .
+                  </li>
                   <li className="w-96 flex flex-row justify-start items-start flex-nowrap">
                     <h3 className="font-semibold w-64">- Description: </h3>
                     <p className="italic text-sm">

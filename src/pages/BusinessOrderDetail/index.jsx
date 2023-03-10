@@ -63,6 +63,19 @@ export function BusinessOrderDetail() {
                     <span className="font-semibold">- Client: </span>
                     {order.client.name}.
                   </li>
+                  <li>
+                    <span className="font-semibold">- Price: </span>
+                    {`R$ ${Math.floor(order.product.price / 100)},${
+                      String(order.product.price)[
+                        String(order.product.price).length - 2
+                      ]
+                    }${
+                      String(order.product.price)[
+                        String(order.product.price).length - 1
+                      ]
+                    }`}
+                    .
+                  </li>
                   <li className="w-96 flex flex-row justify-start items-start flex-nowrap">
                     <h3 className="font-semibold w-64">- Description: </h3>
                     <p className="italic text-sm">

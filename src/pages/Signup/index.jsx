@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 
@@ -66,10 +65,12 @@ export function Signup() {
     const clone = { ...form };
     if (clone.type !== "BUSINESS" && clone.type !== "CLIENT") {
       // adc toast.
+      toast.error("Select a valid type.");
       return;
     }
     if (clone.type === "BUSINESS" && clone.businessType === "Select a type") {
       // adc toast.
+      toast.error("Select a valid business type.");
       return;
     }
     if (clone.type === "BUSINESS") {
