@@ -5,8 +5,6 @@ import { BusinessNavBar } from "../../components/BusinessNavBar";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-// Aqui faltam btns para fazer softdelete nas orders antigas.
-
 export function BusinessAdmin() {
   const [myOrders, setMyOrders] = useState([]);
   const [myProducts, setMyProducts] = useState([]);
@@ -91,7 +89,7 @@ export function BusinessAdmin() {
                           <img
                             src={currentOrder.product.picture}
                             alt="Product"
-                            className="w-24 h-24 rounded-full max-h-full"
+                            className="w-24 h-24 rounded-lg shadow-xl max-h-full"
                           />
                         </div>
                         <div className="w-3/10 flex flex-row justify-start">
@@ -156,7 +154,7 @@ export function BusinessAdmin() {
                         <img
                           src={currentProduct.picture}
                           alt="Product"
-                          className="w-24 h-24 rounded-full max-h-full"
+                          className="w-24 h-24 rounded-lg shadow-xl max-h-full"
                         />
                       </div>
                       <div className="w-1/3 flex flex-row justify-start pl-12">
@@ -216,7 +214,7 @@ export function BusinessAdmin() {
                           <img
                             src={currentOrder.product.picture}
                             alt="Product"
-                            className="w-24 h-24 rounded-full max-h-full"
+                            className="w-24 h-24 rounded-lg shadow-xl max-h-full"
                           />
                         </div>
                         <div className="w-3/10 flex flex-row justify-start">
