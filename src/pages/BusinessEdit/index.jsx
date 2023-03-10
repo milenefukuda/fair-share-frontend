@@ -69,10 +69,26 @@ export function BusinessEdit() {
     }
   }
 
-  function handleLogOut() {
+  function handleLogOut(e) {
+    e.preventDefault();
     localStorage.removeItem("loggedInUser");
     setLoggedInUser(null);
     navigate("/");
+  }
+
+  async function handleDeleteUser(e) {
+    try {
+      e.preventDefault();
+      await api.delete("/api/user/delete");
+      localStorage.removeItem("loggedInUser");
+      setLoggedInUser(null);
+      toast.success("User deleted.");
+      navigate("/");
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong... please try again.");
+      navigate("/");
+    }
   }
 
   return (
@@ -258,6 +274,13 @@ export function BusinessEdit() {
                   className="btn-indigo"
                 >
                   Log out
+                </button>
+                <button
+                  onClick={handleDeleteUser}
+                  type="button"
+                  className="btn-indigo bg-black hover:bg-gray-800"
+                >
+                  Delete account
                 </button>
               </div>
             </div>

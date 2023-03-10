@@ -32,7 +32,7 @@ export function Login() {
     } catch (error) {
       console.log(error);
       toast.error(
-        "Could not login. Please insert valid credentials or sign up."
+        "Could not login. Please insert valid credentials, confirm your account or sign up."
       );
     }
   }
