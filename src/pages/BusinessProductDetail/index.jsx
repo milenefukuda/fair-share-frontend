@@ -80,13 +80,13 @@ export function BusinessProductDetail() {
           </ul>
           <div className="mt-12 flex flex-row gap-8">
             <button
-              className="btn-indigo bg-yellow-500 shadow-lg"
+              className="btn-indigo bg-yellow-500 shadow-lg hover:bg-yellow-600"
               onClick={() => setShowForm(!showForm)}
             >
               Editar Produtos aqui
             </button>
             <button
-              className="btn-indigo bg-red-500 shadow-lg shadow-lg"
+              className="btn-indigo bg-red-500 shadow-lg shadow-lg hover:bg-red-600"
               onClick={handleDelete}
             >
               Excluir produto
@@ -96,8 +96,8 @@ export function BusinessProductDetail() {
       </section>
       {showForm && (
         <div className="pl-12">
-          <form className="mb-4">
-            <h2 className="text-2xl font-bold underline mb-4 h-8 align-end border-t-2 border-t-indigo-900 pl-12 text-black/80">
+          <form className="pt-4 border-t-2 border-t-indigo-900">
+            <h2 className="text-2xl font-bold underline mb-4 h-8 align-end pl-12 text-black/80 h-8">
               Edit:
             </h2>
             <label htmlFor="expirationDate" className="text-base pl-12">
@@ -115,7 +115,7 @@ export function BusinessProductDetail() {
           <button
             onClick={handleSubmit}
             type="button"
-            className="btn-indigo ml-12"
+            className="btn-indigo ml-12 my-4"
           >
             Save
           </button>

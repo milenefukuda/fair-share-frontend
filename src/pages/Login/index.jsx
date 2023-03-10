@@ -65,7 +65,7 @@ export function Login() {
           </div>
           <div className="flex flex-row mx-auto mt-12 justify-evenly">
             <button type="submit" className="btn-indigo text-center">
-              Entrar!
+              Login!
             </button>
             <Link to="/signup">
               <button className="btn-indigo">Sign up</button>

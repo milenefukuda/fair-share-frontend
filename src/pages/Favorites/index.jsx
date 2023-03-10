@@ -36,12 +36,12 @@ export function Favorites() {
         Your favorites:
       </h1>
       <section className="w-screen flex flex-col items-center min-h-screen">
-        <div className="w-9/12 pt-8 rounded flex flex-col items-center">
+        <div className="w-8/12 pt-8 rounded flex flex-col items-center gap-2">
           {favorites.map((currentFavorite) => {
             return (
               <article
                 key={currentFavorite._id}
-                className="flex flex-row border border-indigo-200 items-center w-10/12 rounded-lg w-11/12 px-4 py-6 h-28"
+                className="flex flex-row border border-indigo-200 items-center w-10/12 rounded-xl w-11/12 px-4 py-6 h-28"
               >
                 <div className="w-1/3 h-full flex flex-row justify-center">
                   <img
