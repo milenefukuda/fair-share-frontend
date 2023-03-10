@@ -99,7 +99,11 @@ export function ViewProfile() {
             <Link to={"/user/profile"}>
               <button className="btn-indigo">Edit</button>
             </Link>
-            <button onClick={handleLogOut} type="submit" className="btn-indigo">
+            <button
+              onClick={handleLogOut}
+              type="submit"
+              className="btn-indigo bg-red-500 hover:bg-red-600"
+            >
               Log out
             </button>
           </div>

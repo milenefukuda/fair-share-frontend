@@ -44,37 +44,76 @@ export function BusinessOrderDetail() {
   return (
     <div>
       <BusinessNavBar />
-      <div className>
-        <h1 className="font-bold">Here is your order</h1>
+      <div className="mt-6 mx-auto py-12 flex flex-col gap-8 items-center bg-white/90 rounded-md w-1/2 drop-shadow-2xl shadow-black">
+        <h1 className="text-center text-5xl underline mb-2">Order details:</h1>
         {!isLoading && (
           <>
-            <img src={order.product.picture} className="w-52 max-h-56" />
-            <h2>Product: {order.product.name}.</h2>
-            <h2>Business: {order.business.name}.</h2>
-            <h2>Client: {order.client.name}.</h2>
-            <h2 className="font-bold">Status: {order.status}.</h2>
-
-            <button
-              value="REJECTED BY COMPANY"
-              onClick={changeOrderStatus}
-              className="btn-indigo bg-red-500"
-            >
-              Reject Order
-            </button>
-            <button
-              value="CONFIRMED BY COMPANY"
-              onClick={changeOrderStatus}
-              className="btn-indigo"
-            >
-              Confirm Order
-            </button>
-            <button
-              value="CONCLUDED"
-              onClick={changeOrderStatus}
-              className="btn-indigo bg-green-500"
-            >
-              Mark as concluded
-            </button>
+            <section>
+              <div className="text-sm">
+                <h2>
+                  <span className="font-semibold">- Product: </span>
+                  {order.product.name}.
+                </h2>
+                <ul>
+                  <li>
+                    <span className="font-semibold">- Business: </span>
+                    {order.business.name}.
+                  </li>
+                  <li>
+                    <span className="font-semibold">- Client: </span>
+                    {order.client.name}.
+                  </li>
+                  <li>
+                    <span className="font-semibold">- Price: </span>
+                    {`R$ ${Math.floor(order.product.price / 100)},${
+                      String(order.product.price)[
+                        String(order.product.price).length - 2
+                      ]
+                    }${
+                      String(order.product.price)[
+                        String(order.product.price).length - 1
+                      ]
+                    }`}
+                    .
+                  </li>
+                  <li className="w-96 flex flex-row justify-start items-start flex-nowrap">
+                    <h3 className="font-semibold w-64">- Description: </h3>
+                    <p className="italic text-sm">
+                      {order.product.description}
+                    </p>
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-row justify-center">
+                <h3 className="mt-6 font-bold text-2xl">
+                  <span>Status: </span>
+                  {order.status}.
+                </h3>
+              </div>
+            </section>
+            <div className="flex flex-row gap-6 m-2">
+              <button
+                value="REJECTED BY COMPANY"
+                onClick={changeOrderStatus}
+                className="btn-indigo bg-red-500 shadow-lg hover:bg-red-600"
+              >
+                Reject Order
+              </button>
+              <button
+                value="CONFIRMED BY COMPANY"
+                onClick={changeOrderStatus}
+                className="btn-indigo shadow-lg"
+              >
+                Confirm Order
+              </button>
+              <button
+                value="CONCLUDED"
+                onClick={changeOrderStatus}
+                className="btn-indigo bg-green-500 shadow-lg hover:bg-green-600"
+              >
+                Mark as concluded
+              </button>
+            </div>
           </>
         )}
       </div>

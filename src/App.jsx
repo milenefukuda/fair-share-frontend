@@ -19,12 +19,21 @@ import { BusinessAdmin } from "./pages/BusinessAdmin";
 import { BusinessEdit } from "./pages/BusinessEdit";
 import { BusinessOrderDetail } from "./pages/BusinessOrderDetail";
 import { BusinessProductDetail } from "./pages/BusinessProductDetail";
+import { Toaster } from "react-hot-toast";
+
+// toast((t) => (
+//   <span>
+//     Custom and <b>bold</b>
+//     <button onClick={() => {outraFunc();}>Dismiss</button>
+//   </span>
+// ));
 
 function App() {
   return (
     <>
       <div className="App bg-stone-200 h-full">
         <AuthContextComponent>
+          <Toaster position="top-center" />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />

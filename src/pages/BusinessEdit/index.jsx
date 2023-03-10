@@ -241,7 +241,7 @@ export function BusinessEdit() {
               </div>
             </div>
             <div className="pt-5">
-              <div className="flex justify-end">
+              <div className="flex justify-end gap-6">
                 <button
                   onClick={handleSubmit}
                   type="button"
@@ -252,7 +252,7 @@ export function BusinessEdit() {
                 <button
                   onClick={handleLogOut}
                   type="submit"
-                  className="ml-3 inline-flex justify-center rounded-md bg-indigo-600 py-2 px-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                  className="btn-indigo"
                 >
                   Log out
                 </button>

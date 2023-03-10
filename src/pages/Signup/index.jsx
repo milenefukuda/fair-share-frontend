@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { api } from "../../api/api";
 
@@ -18,10 +19,28 @@ export function Signup() {
     contactPhone: "",
   });
 
-  const [img, setImg] = useState("");
+  const [img, setImg] = useState(""),
+    [showBusiness, setShowBusiness] = useState(false),
+    [showClient, setShowClient] = useState(false);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
+  }
+
+  function handleTypeChange(e) {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if (e.target.value === "BUSINESS") {
+      setShowBusiness(true);
+      setShowClient(false);
+    }
+    if (e.target.value === "CLIENT") {
+      setShowBusiness(false);
+      setShowClient(true);
+    }
+    if (e.target.value !== "CLIENT" && e.target.value !== "BUSINESS") {
+      setShowBusiness(false);
+      setShowClient(false);
+    }
   }
 
   function handleImage(e) {
@@ -46,10 +65,12 @@ export function Signup() {
     const clone = { ...form };
     if (clone.type !== "BUSINESS" && clone.type !== "CLIENT") {
       // adc toast.
+      toast.error("Select a valid type.");
       return;
     }
     if (clone.type === "BUSINESS" && clone.businessType === "Select a type") {
       // adc toast.
+      toast.error("Select a valid business type.");
       return;
     }
     if (clone.type === "BUSINESS") {
@@ -198,7 +219,7 @@ export function Signup() {
                   <div className="mt-1">
                     <select
                       value={form.type}
-                      onChange={handleChange}
+                      onChange={handleTypeChange}
                       id="formType"
                       name="type"
                       autoComplete="country-name"
@@ -211,31 +232,33 @@ export function Signup() {
                   </div>
                 </div>
 
-                <div className="sm:col-span-3">
-                  <label
-                    htmlFor="businessType"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Business type:
-                  </label>
-                  <div className="mt-1">
-                    <select
-                      value={form.businessType}
-                      onChange={handleChange}
-                      id="formBusiness"
-                      name="businessType"
-                      autoComplete="business-type"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                {showBusiness && (
+                  <div className="sm:col-span-3">
+                    <label
+                      htmlFor="businessType"
+                      className="block text-sm font-medium text-gray-700"
                     >
-                      <option>Select a type</option>
-                      <option>BAKERY</option>
-                      <option>RESTAURANT</option>
-                      <option>BAR</option>
-                      <option>SUPERMARKET/GROCERY STORE</option>
-                      <option>OTHER</option>
-                    </select>
+                      Business type:
+                    </label>
+                    <div className="mt-1">
+                      <select
+                        value={form.businessType}
+                        onChange={handleChange}
+                        id="formBusiness"
+                        name="businessType"
+                        autoComplete="business-type"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      >
+                        <option>Select a type</option>
+                        <option>BAKERY</option>
+                        <option>RESTAURANT</option>
+                        <option>BAR</option>
+                        <option>SUPERMARKET/GROCERY STORE</option>
+                        <option>OTHER</option>
+                      </select>
+                    </div>
                   </div>
-                </div>
+                )}
 
                 <div className="sm:col-span-6">
                   <label
@@ -277,45 +300,49 @@ export function Signup() {
                   </div>
                 </div>
 
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="cpf"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    CPF:
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      value={form.cpf}
-                      onChange={handleChange}
-                      type="text"
-                      name="cpf"
-                      id="formCpf"
-                      autoComplete="cpf"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+                {showClient && (
+                  <div className="sm:col-span-2">
+                    <label
+                      htmlFor="cpf"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      CPF:
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        value={form.cpf}
+                        onChange={handleChange}
+                        type="text"
+                        name="cpf"
+                        id="formCpf"
+                        autoComplete="cpf"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
 
-                <div className="sm:col-span-2">
-                  <label
-                    htmlFor="cnpj"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    CNPJ:
-                  </label>
-                  <div className="mt-1">
-                    <input
-                      value={form.cnpj}
-                      onChange={handleChange}
-                      type="text"
-                      name="cnpj"
-                      id="formCnpj"
-                      autoComplete="cnpj"
-                      className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
+                {showBusiness && (
+                  <div className="sm:col-span-2">
+                    <label
+                      htmlFor="cnpj"
+                      className="block text-sm font-medium text-gray-700"
+                    >
+                      CNPJ:
+                    </label>
+                    <div className="mt-1">
+                      <input
+                        value={form.cnpj}
+                        onChange={handleChange}
+                        type="text"
+                        name="cnpj"
+                        id="formCnpj"
+                        autoComplete="cnpj"
+                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
